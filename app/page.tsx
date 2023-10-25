@@ -18,8 +18,8 @@ export default function Home() {
     for (let i = 0; i < resolution.height; i++) {
       let row_temp: number[][] = []
       for (let j = 0; j < resolution.width; j++) {
-        const x = Math.round(Math.random()*4)-2;
-        const y = Math.round(Math.random()*4)-2;
+        const x = Math.round(Math.random()*3)-1.5;
+        const y = Math.round(Math.random()*3)-1.5;
         row_temp.push([x, y, 0]);
       }
       segments_temp.push(row_temp);
@@ -57,8 +57,8 @@ export default function Home() {
     for (let i = 0; i < resolution.height; i++) {
       let row_temp: number[][] = []
       for (let j = 0; j < resolution.width; j++) {
-        const x = Math.round(Math.random()*4)-2;
-        const y = Math.round(Math.random()*4)-2;
+        const x = Math.round(Math.random()*3)-1.5;
+        const y = Math.round(Math.random()*3)-1.5;
         row_temp.push([x, y, timer/1000]);
       }
       segments_temp.push(row_temp);

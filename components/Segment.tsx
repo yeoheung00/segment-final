@@ -106,11 +106,12 @@ export default function Segment({ coordinate, isClicked, clickedCordinate, isRan
                 }
             }
         }
+
     }
 
     useEffect(() => {
         if (isRandom) {
-            //random();
+                random();
         }
     }, [isRandom]);
 
@@ -142,16 +143,16 @@ export default function Segment({ coordinate, isClicked, clickedCordinate, isRan
                     position: "relative",
                     // left: "1px",
                     // top: "1px",
-                    transition: "0.5s",
-                    border: "1px solid white"
+                    transition: "0.5s"
                 }}>
                     <img src='/back.png' alt='segment' style={
                         {
                             position: "absolute",
                             width: "auto",
                             height: "100vh",
-                            top: top + "px",
-                            left: left + "px"
+                            top: top + data[1]*-5 + "px",
+                            left: left + data[0]*-5 + "px",
+                            transition: data[2] + "s"
                         }
                     } />
                 </div>
