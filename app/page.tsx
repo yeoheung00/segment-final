@@ -1,95 +1,71 @@
-import Image from 'next/image'
+'use client'
 import styles from './page.module.css'
+import Segment from 'components/Segment'
+import { MouseEvent, useEffect, useState } from 'react'
 
-export default function Home() {
+export default function Home({ params }: { params: { slug: string } }) {
+
+  const resolution = {width: 12, height:21};
+  const [windowResolution, setWindowResolution] = useState({ width: 0, height: 0 });
+  const [segments, setSegments] = useState<string[][]>([]);
+
+  useEffect(() => {
+    setWindowResolution({ width: window.innerWidth, height: window.innerHeight });
+    window.addEventListener("resize", () => {
+        setWindowResolution({ width: window.innerWidth, height: window.innerHeight });
+    });
+    let segments_temp: string[][] = [];
+    for (let i = 0; i < resolution.height; i++) {
+      let row_temp: string[] = []
+      for (let j = 0; j < resolution.width; j++) {
+        row_temp.push(`segment(${j}, ${i})`);
+      }
+      segments_temp.push(row_temp);
+    }
+    setSegments(segments_temp);
+    random();
+  }, []);
+
+  const [clickedCordinate, setClickedCordinate] = useState({ x: 0, y: 0 });
+  const [isClicked, setIsClicked] = useState(false);
+
+  const handlerMouseDown = (event: MouseEvent) => {
+    const clickedX = Math.floor(event.clientX / (windowResolution.width / resolution.width));
+    const clickedY = Math.floor(event.clientY / (windowResolution.height / resolution.height));
+    setClickedCordinate({ x: clickedX, y: clickedY });
+    setIsClicked(true);
+  }
+
+  const handlerMouseUp = (event: MouseEvent) => {
+    setIsClicked(false);
+  }
+
+  const [isRandom, setIsRandom] = useState(false);
+  const [randomData, setRandomData] = useState({ x: 0, y: 0,  limit: 0});
+  function random() {
+    const timer = Math.floor(Math.random() * 3500) + 500;
+    const rx = Math.floor(Math.random() * resolution.width);
+    const ry = Math.floor(Math.random() * resolution.height);
+    const limit = Math.random()* 1.5+ 2.5;
+    setRandomData({ x: rx, y: ry, limit: limit});
+    setIsRandom(true);
+    setTimeout(() => { setIsRandom(false); }, 500);
+    setTimeout(() => { random(); }, timer);
+  }
+
+
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+      {
+        segments.map((row, row_idx) => <div key={row_idx} className={styles.row}>
+          {row.map((col, col_idx) => (<div key={col_idx} className={styles.col}>
+            <Segment coordinate={{ x: col_idx, y: row_idx }} isClicked={isClicked} clickedCordinate={clickedCordinate} isRandom={isRandom} randomData={randomData} />
+          </div>)
+          )}
+        </div>)
+      }
+      <img className={styles.fixed} src='/text.png' />
+      <div className={styles.feedback} onMouseDown={handlerMouseDown} onMouseUp={handlerMouseUp} />
     </main>
   )
 }
