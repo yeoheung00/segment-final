@@ -9,9 +9,10 @@ type SegmentType = {
     clickedCordinate: { x: number, y: number },
     isRandom: boolean,
     randomData: { x: number, y: number, limit: number }
+    data: number[]
 }
 
-export default function Segment({ coordinate, isClicked, clickedCordinate, isRandom, randomData }: SegmentType) {
+export default function Segment({ coordinate, isClicked, clickedCordinate, isRandom, randomData, data }: SegmentType) {
     const [windowResolution, setWindowResolution] = useState({ width: 0, height: 0 });
     const backgroundResolution = {width: 1080, height: 1920};
     const resolution = {width: 12, height: 21};
@@ -109,18 +110,18 @@ export default function Segment({ coordinate, isClicked, clickedCordinate, isRan
 
     useEffect(() => {
         if (isRandom) {
-            random();
+            //random();
         }
     }, [isRandom]);
 
     return (
         <div className={styles.root} style={{
-            overflow: "hidden",
             width: windowResolution.width / resolution.width + "px",
             height: windowResolution.height / resolution.height + "px",
             display: "flex",
             alignItems: "center",
-            justifyContent: "center"
+            justifyContent: "center",
+            position: "relative"
         }}>
             <div ref={randomRef} style={{
                 overflow: "hidden",
@@ -130,16 +131,19 @@ export default function Segment({ coordinate, isClicked, clickedCordinate, isRan
                 alignItems: "center",
                 justifyContent: "center",
                 position: "relative",
-                transition: "1s"
+                transition: data[2] + "s",
+                left: data[0] + "px",
+                top: data[1] + "px"
             }}>
                 <div ref={itemRef} className="" style={{
                     overflow: "hidden",
                     width: "100%",
                     height: "100%",
                     position: "relative",
-                    left: "1px",
-                    top: "1px",
-                    transition: "0.5s"
+                    // left: "1px",
+                    // top: "1px",
+                    transition: "0.5s",
+                    border: "1px solid white"
                 }}>
                     <img src='/back.png' alt='segment' style={
                         {

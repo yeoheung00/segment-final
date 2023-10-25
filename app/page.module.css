@@ -5,19 +5,17 @@
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background-color: black;
+  background-color: white;
 }
 
 .row{
   display: flex;
   gap: 0px;
-  overflow: hidden;
 }
 
 .col{
   display: flex;
   flex: 1;
-  overflow: hidden;
 }
 
 .fixed{
