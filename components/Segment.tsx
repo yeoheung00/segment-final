@@ -16,6 +16,20 @@ export default function Segment({ coordinate, isClicked, clickedCordinate, isRan
     const [windowResolution, setWindowResolution] = useState({ width: 0, height: 0 });
     const backgroundResolution = {width: 1080, height: 1920};
     const resolution = {width: 12, height: 21};
+    let sizeResolution = {width: 12, height: 21};
+    let isTop = false;
+    if((coordinate.x == 0 && coordinate.y == 0) || (coordinate.x == 8 && coordinate.y == 10) || (coordinate.x == 3 && coordinate.y == 17)) {
+        isTop = true;
+        sizeResolution = {width: resolution.width/4, height: resolution.height/4}
+    }
+    if((coordinate.x == 9 && coordinate.y == 0) || (coordinate.x == 2 && coordinate.y == 4  ) || (coordinate.x == 9 && coordinate.y == 15)) {
+        isTop = true;
+        sizeResolution = {width: resolution.width/3, height: resolution.height/3}
+    }
+    if((coordinate.x == 7 && coordinate.y == 0) || (coordinate.x == 0 && coordinate.y == 9  ) || (coordinate.x == 1 && coordinate.y == 11) || (coordinate.x == 10 && coordinate.y == 6)) {
+        isTop = true;
+        sizeResolution = {width: resolution.width/2, height: resolution.height/2}
+    }
     const top = (windowResolution.height / resolution.height) * coordinate.y * -1;
     const left = (windowResolution.width / resolution.width) * coordinate.x * -1 - ((windowResolution.height * backgroundResolution.width / backgroundResolution.height - windowResolution.width) / 2);
 
@@ -117,12 +131,16 @@ export default function Segment({ coordinate, isClicked, clickedCordinate, isRan
 
     return (
         <div className={styles.root} style={{
-            width: windowResolution.width / resolution.width + "px",
-            height: windowResolution.height / resolution.height + "px",
+            overflow: "hidden",
+            width: windowResolution.width / sizeResolution.width + "px",
+            height: windowResolution.height / sizeResolution.height + "px", 
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            position: "relative"
+            position: "relative",
+            zIndex: isTop?999:0,
+            backgroundColor: "white",
+            border: "1px solid white"
         }}>
             <div ref={randomRef} style={{
                 overflow: "hidden",
@@ -150,9 +168,9 @@ export default function Segment({ coordinate, isClicked, clickedCordinate, isRan
                             position: "absolute",
                             width: "auto",
                             height: "100vh",
-                            top: top + data[1]*-5 + "px",
-                            left: left + data[0]*-5 + "px",
-                            transition: data[2] + "s"
+                            top: top + "px",
+                            left: left + "px",
+                            // transition: data[2] + "s"
                         }
                     } />
                 </div>

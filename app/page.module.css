@@ -14,8 +14,6 @@
 }
 
 .col{
-  display: flex;
-  flex: 1;
 }
 
 .fixed{
@@ -26,6 +24,7 @@
   height: 100%;
   object-fit: contain;
   background-color: transparent;
+  z-index: 1111;
 }
 
 .feedback{
@@ -34,4 +33,5 @@
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 2222;
 }
