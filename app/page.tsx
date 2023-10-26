@@ -46,9 +46,30 @@ export default function Home() {
   useEffect(() => {
     if (resolution.width > 4 && resolution.height > 4) {
       let tempCoordinate: { x: number, y: number, size: number }[] = [];
-      for (let i = 0; i < 5; i++) { //======================================================== 5개의 정사각형 구하기
+      // let count = 10;
+      // const id = setInterval(()=>{
+      //   if(count < 0) clearInterval(id);
+      //   count--;
+      //   const size = Math.round(Math.sqrt(Math.random() * 32 + 4)); //======================== 2~4의 정사각형 변의 길이
+      //   // const size = Math.round(Math.random() * 2) + 2;
+      //   const x = Math.round(Math.random() * (resolution.width - size)); //=================== 정사각형의 좌측상단 x좌표
+      //   const y = Math.round(Math.random() * (resolution.height - size)); //================== 정사각형의 좌측상단 y좌표
 
-        const size = Math.round(Math.sqrt(Math.random() * 12 + 4)); //======================== 2~4의 정사각형 변의 길이
+      //   tempCoordinate.push({ x: x, y: y, size: size }); //=================================== 정사각형 데이터 배열에 넣음
+
+      //   for (let j = 0; j < tempCoordinate.length-1; j++) { //================================ 이전에 생성했던 정사각형들과 겹치는지 검사
+      //     const data = tempCoordinate[j];
+      //     if (isMeet({x: x, y: y, size: size}, {x: data.x, y: data.y, size: data.size})) { //= 만약 겹친다면,
+      //       tempCoordinate.pop(); //========================================================== 마지막에 집어넣은 요소 빼기
+      //       count++;
+      //       break; //========================================================================= 검사 종료
+      //     }
+      //   };
+      // }, 100);
+
+      for (let i = 0; i < 10; i++) { //======================================================== 5개의 정사각형 구하기
+
+        const size = Math.round(Math.sqrt(Math.random() * 28 + 4)); //======================== 2~4의 정사각형 변의 길이
         const x = Math.round(Math.random() * (resolution.width - size)); //=================== 정사각형의 좌측상단 x좌표
         const y = Math.round(Math.random() * (resolution.height - size)); //================== 정사각형의 좌측상단 y좌표
 
@@ -63,6 +84,7 @@ export default function Home() {
           }
         };
       }
+
       setBig(tempCoordinate);
     }
 
