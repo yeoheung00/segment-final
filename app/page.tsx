@@ -46,30 +46,12 @@ export default function Home() {
   useEffect(() => {
     if (resolution.width > 4 && resolution.height > 4) {
       let tempCoordinate: { x: number, y: number, size: number }[] = [];
-      // let count = 10;
-      // const id = setInterval(()=>{
-      //   if(count < 0) clearInterval(id);
-      //   count--;
-      //   const size = Math.round(Math.sqrt(Math.random() * 32 + 4)); //======================== 2~4의 정사각형 변의 길이
-      //   // const size = Math.round(Math.random() * 2) + 2;
-      //   const x = Math.round(Math.random() * (resolution.width - size)); //=================== 정사각형의 좌측상단 x좌표
-      //   const y = Math.round(Math.random() * (resolution.height - size)); //================== 정사각형의 좌측상단 y좌표
 
-      //   tempCoordinate.push({ x: x, y: y, size: size }); //=================================== 정사각형 데이터 배열에 넣음
-
-      //   for (let j = 0; j < tempCoordinate.length-1; j++) { //================================ 이전에 생성했던 정사각형들과 겹치는지 검사
-      //     const data = tempCoordinate[j];
-      //     if (isMeet({x: x, y: y, size: size}, {x: data.x, y: data.y, size: data.size})) { //= 만약 겹친다면,
-      //       tempCoordinate.pop(); //========================================================== 마지막에 집어넣은 요소 빼기
-      //       count++;
-      //       break; //========================================================================= 검사 종료
-      //     }
-      //   };
-      // }, 100);
-
-      for (let i = 0; i < 10; i++) { //======================================================== 5개의 정사각형 구하기
-
-        const size = Math.round(Math.sqrt(Math.random() * 28 + 4)); //======================== 2~4의 정사각형 변의 길이
+      let count = 0;
+      for (let i = 0; i < 30; i++) { //======================================================== 5개의 정사각형 구하기
+        if(count > 2000) break;
+        count++;
+        const size = Math.round((Math.random()*2+2)); //======================== 2~4의 정사각형 변의 길이
         const x = Math.round(Math.random() * (resolution.width - size)); //=================== 정사각형의 좌측상단 x좌표
         const y = Math.round(Math.random() * (resolution.height - size)); //================== 정사각형의 좌측상단 y좌표
 
@@ -77,14 +59,14 @@ export default function Home() {
 
         for (let j = 0; j < tempCoordinate.length-1; j++) { //================================ 이전에 생성했던 정사각형들과 겹치는지 검사
           const data = tempCoordinate[j];
-          if (isMeet({x: x, y: y, size: size}, {x: data.x, y: data.y, size: data.size})) { //= 만약 겹친다면,
+          if (isMeet({x: x, y: y, size: size}, {x: data.x, y: data.y, size: data.size}) || isMeet({x: data.x, y: data.y, size: data.size}, {x: x, y: y, size: size})) { //= 만약 겹친다면,
             tempCoordinate.pop(); //========================================================== 마지막에 집어넣은 요소 빼기
             i--; //=========================================================================== 뺐으니 한번 더 실행하게 i 1감소
             break; //========================================================================= 검사 종료
           }
         };
       }
-
+      // console.log(count);
       setBig(tempCoordinate);
     }
 
@@ -114,11 +96,6 @@ export default function Home() {
     else
       return true;
   }
-
-  useEffect(()=>{ 
-    console.log(big);
-    console.log('isMeet?', isMeet({x: 5, y: 6, size: 4}, {x: 5, y:7, size: 2}));
-  }, [big]);
 
   useEffect(() => {
     const direction = windowResolution.width / windowResolution.height > backgroundResolution.width / backgroundResolution.height ? "width" : "height";

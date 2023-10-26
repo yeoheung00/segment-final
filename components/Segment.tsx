@@ -24,26 +24,6 @@ export default function Segment({ coordinate, windowResolution, resolution, posi
             sizeResolution = {width: resolution.width/Number(data.size), height: resolution.height/Number(data.size)}
         }
     });
-    // if(four.includes(`${coordinate.x},${coordinate.y}`)){
-    //     isTop = true;
-    //     sizeResolution = {width: resolution.width/4, height: resolution.height/4}
-    // }
-    // if(three.includes(`${coordinate.x},${coordinate.y}`)){
-    //     isTop = true;
-    //     sizeResolution = {width: resolution.width/3, height: resolution.height/3}
-    // }
-    // if((coordinate.x == 0 && coordinate.y == 0) || (coordinate.x == 8 && coordinate.y == 10) || (coordinate.x == 3 && coordinate.y == 17)) {
-    //     isTop = true;
-    //     sizeResolution = {width: resolution.width/4, height: resolution.height/4}
-    // }
-    // if((coordinate.x == 9 && coordinate.y == 0) || (coordinate.x == 2 && coordinate.y == 4  ) || (coordinate.x == 9 && coordinate.y == 15)) {
-    //     isTop = true;
-    //     sizeResolution = {width: resolution.width/3, height: resolution.height/3}
-    // }
-    // if((coordinate.x == 7 && coordinate.y == 0) || (coordinate.x == 0 && coordinate.y == 9  ) || (coordinate.x == 1 && coordinate.y == 11) || (coordinate.x == 10 && coordinate.y == 6)) {
-    //     isTop = true;
-    //     sizeResolution = {width: resolution.width/2, height: resolution.height/2}
-    // }
 
     const distance = Math.sqrt(Math.pow(coordinate.x - clickedCordinate.x, 2) + Math.pow(coordinate.y - clickedCordinate.y, 2));
 
