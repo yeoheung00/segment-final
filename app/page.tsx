@@ -22,18 +22,18 @@ export default function Home() {
 
   useEffect(() => {
     //console.log('windowResolution', windowResolution);
-    let tempResolution = { width: 12, height: 12 };
+    let tempResolution = { width: 17, height: 17 };
     if (windowResolution.width > windowResolution.height) {
-      tempResolution.width = Math.round(12 * windowResolution.width / windowResolution.height);
-      tempResolution.height = 12;
+      tempResolution.width = Math.round(17 * windowResolution.width / windowResolution.height);
+      tempResolution.height = 17;
       while (tempResolution.height > 0) {
         if (tempResolution.width * tempResolution.height < 300) break;
         tempResolution.height--;
         tempResolution.width = Math.round(tempResolution.height * windowResolution.width / windowResolution.height);
       }
     } else {
-      tempResolution.width = 12;
-      tempResolution.height = Math.round(12 * windowResolution.height / windowResolution.width);
+      tempResolution.width = 17;
+      tempResolution.height = Math.round(17 * windowResolution.height / windowResolution.width);
       while (tempResolution.width > 0) {
         if (tempResolution.width * tempResolution.height < 300) break;
         tempResolution.width--;
