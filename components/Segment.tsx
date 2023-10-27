@@ -59,16 +59,12 @@ export default function Segment({ coordinate, windowResolution, resolution, posi
         }
     }
 
-
-
     useEffect(() => {
         if (isClicked) {
             console.log('active');
             click();
         }
     }, [isClicked]);
-
-
 
 
     const randomDistance = Math.sqrt(Math.pow(coordinate.x - randomData.x, 2) + Math.pow(coordinate.y - randomData.y, 2));

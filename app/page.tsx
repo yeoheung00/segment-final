@@ -9,7 +9,6 @@ export default function Home() {
   const [windowResolution, setWindowResolution] = useState({ width: 0, height: 0 });
   const [segments, setSegments] = useState<{ top: number, left: number, direction: string }[][]>([]);
   const [big, setBig] = useState<{ x: number, y: number, size: number }[]>([]);
-  const [three, setThree] = useState<string[]>([]);
 
   useEffect(() => {
     //console.log('start');
@@ -48,21 +47,21 @@ export default function Home() {
       let tempCoordinate: { x: number, y: number, size: number }[] = [];
 
       let count = 0;
-      for (let i = 0; i < 30; i++) { //======================================================== 5개의 정사각형 구하기
+      for (let i = 0; i < 30; i++) {
         if(count > 2000) break;
         count++;
-        const size = Math.round((Math.random()*2+2)); //======================== 2~4의 정사각형 변의 길이
-        const x = Math.round(Math.random() * (resolution.width - size)); //=================== 정사각형의 좌측상단 x좌표
-        const y = Math.round(Math.random() * (resolution.height - size)); //================== 정사각형의 좌측상단 y좌표
+        const size = Math.round((Math.random()*2+2)); 
+        const x = Math.round(Math.random() * (resolution.width - size));
+        const y = Math.round(Math.random() * (resolution.height - size));
 
-        tempCoordinate.push({ x: x, y: y, size: size }); //=================================== 정사각형 데이터 배열에 넣음
+        tempCoordinate.push({ x: x, y: y, size: size });
 
-        for (let j = 0; j < tempCoordinate.length-1; j++) { //================================ 이전에 생성했던 정사각형들과 겹치는지 검사
+        for (let j = 0; j < tempCoordinate.length-1; j++) { 
           const data = tempCoordinate[j];
-          if (isMeet({x: x, y: y, size: size}, {x: data.x, y: data.y, size: data.size}) || isMeet({x: data.x, y: data.y, size: data.size}, {x: x, y: y, size: size})) { //= 만약 겹친다면,
-            tempCoordinate.pop(); //========================================================== 마지막에 집어넣은 요소 빼기
-            i--; //=========================================================================== 뺐으니 한번 더 실행하게 i 1감소
-            break; //========================================================================= 검사 종료
+          if (isMeet({x: x, y: y, size: size}, {x: data.x, y: data.y, size: data.size}) || isMeet({x: data.x, y: data.y, size: data.size}, {x: x, y: y, size: size})) { 
+            tempCoordinate.pop();
+            i--;
+            break;
           }
         };
       }
@@ -137,6 +136,7 @@ export default function Home() {
 
   const [isRandom, setIsRandom] = useState(false);
   const [randomData, setRandomData] = useState({ x: 0, y: 0, limit: 0 });
+
   function random() {
     const timer = Math.floor(Math.random() * 3500) + 500;
     const rx = Math.floor(Math.random() * resolution.width);
